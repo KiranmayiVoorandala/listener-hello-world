@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="61ada6bf-b735-453d-b5b4-5839a33fad1f" >
+		<http:listener-connection host="${api.http.host}" port="${api.http.port}" />
+	</http:listener-config>
+	<global-property doc:name="Global Property" doc:id="61333ff6-81cc-4851-aff9-3759e798ae92" name="runtime.env" value="local" />
+	<configuration-properties doc:name="Configuration properties" doc:id="8ca16075-4f82-45bc-8f1c-fcf04123d6cd" file="config/${runtime.env}.properties" />
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="207edaea-f794-4f65-90ac-93d91cc3c6f5" file="config/secure-${runtime.env}.properties" key="runtime.encryption.key"/>
+</mule>
