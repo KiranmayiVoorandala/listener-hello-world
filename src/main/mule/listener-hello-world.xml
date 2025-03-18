@@ -8,9 +8,13 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	
 	<flow name="listener-hello-worldFlow" doc:id="03aa3e3a-4669-4184-add7-074a58fa09d6" >
 		<http:listener doc:name="Listener" doc:id="488b9f7e-c2ba-4a3b-9717-5ae212762e86" config-ref="HTTP_Listener_config" path="/load/*"/>
-		<ee:transform doc:name="Transform Message" doc:id="d40f46b4-7b50-428f-b8f6-a2e2ef62b97b" >
-			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
+		<flow-ref doc:name="Flow Reference" doc:id="1aa3ced2-7dbe-4592-9934-868801302cee" name="listener-hello-worldFlow1"/>
+		<logger level="INFO" doc:name="Logger" doc:id="5667b3fa-6fa5-492f-903b-58ec6e6ffebf" message="Successfully invoked Listener with response #[payload]"/>
+	</flow>
+	<flow name="listener-hello-worldFlow1" doc:id="6f83da12-3cff-45d9-a04e-a1bf7e785c26" >
+		<ee:transform doc:name="Transform Message" doc:id="d40f46b4-7b50-428f-b8f6-a2e2ef62b97b">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
 {
@@ -19,6 +23,6 @@ output application/json
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<logger level="INFO" doc:name="Logger" doc:id="5667b3fa-6fa5-492f-903b-58ec6e6ffebf" message="Successfully invoked Listener with response #[payload]"/>
+		<logger level="INFO" doc:name="Logger" doc:id="163d8a86-e47f-4824-97b4-946d98058249" message="#[payload]"/>
 	</flow>
 </mule>
